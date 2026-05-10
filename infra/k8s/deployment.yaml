@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-hunter-ai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reservation-hunter-ai
+  template:
+    metadata:
+      labels:
+        app: reservation-hunter-ai
+    spec:
+      containers:
+        - name: api
+          image: reservation-hunter-ai:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: reservation-hunter-ai-secrets
